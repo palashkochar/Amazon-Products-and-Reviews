@@ -14,34 +14,13 @@ var showDetails = function (event){
 			document.getElementById("similar").innerHTML = data[j].similar.length;
 			document.getElementById("rating").innerHTML = data[j].reviews.avgRating;
 			document.getElementById("reviewsNo").innerHTML = data[j].reviews.customers.length;
+			break;
 		}
 	}
 	$("#itemDetails").show();
 };
 
-var seeReviews = function(){
-	var reviews;
-	var reviewsHolder = document.getElementById('modalBody');
-	for(var j = 0; j < data.length; j++){
-		var id = data[j].Id;
-		if(id == itemId){
-			reviews = data[j].customers;
-		}
-	}
 
-	var div, divp, p;
-	for (var index = firstItem; index < reviews.length; ++index) {
-        divp = document.createElement('div');
-        p = document.createElement('p');
-        
-        a.innerHTML = data[index].title;
-        a.className = "list-group-item list-group-item-warning items";
-        
-        a.id = data[index].Id;
-        p.appendChild(a);
-        view.appendChild(p);
-    }
-};
 
 window.onload = function(){
 	$("#itemDetails").hide();
@@ -2226,6 +2205,7 @@ function main() {
     //displays the items
     function refreshWindow() {
         //remove old view
+        $("#listHolder").empty();
         if (view != null){
             holder.removeChild(view);
         	//holder.removeChild(paginate);
@@ -2271,6 +2251,44 @@ function main() {
     addEvents();
 };
 
+var seeReviews = function(){
+	$("#modalBody").empty();
+	var reviews, id;
+	var reviewsHolder = document.getElementById('modalBody');
+	var reviewsView = null;
+	
+	if (reviewsView != null){
+		reviewsHolder.removeChild(reviewsView);
+    }
+	for(var j = 0; j < data.length; j++){
+		id = data[j].Id;
+		if(id == productId){
+			reviews = data[j].reviews.customers;
+			break;
+		}
+	}
+
+	reviewsView = reviewsHolder.appendChild(document.createElement('div'));
+	var div, p1, p2, p3;
+	for (var index = 0; index < reviews.length; ++index) {
+        div = document.createElement('div');
+        div.id = "review"+index;
+        p1 = document.createElement('p');
+        p2 = document.createElement('p');
+        p3 = document.createElement('p');
+        p1.innerHTML = "CUSTOMER ID: " + reviews[index].customerid;
+        p2.innerHTML = "RATING: " + reviews[index].rating;
+        p3.innerHTML = "REVIEW: " + reviews[index].reviewText;
+        //$("#review"+index).append(p1, p2, p3, "<hr>");
+        
+        div.appendChild(p1);
+        div.appendChild(p2);
+        div.appendChild(p3);
+        div.appendChild(document.createElement('hr'));
+        //p.appendChild(a);
+        reviewsView.appendChild(div);
+    }
+};
 
 
 
