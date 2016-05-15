@@ -1,91 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
-<link rel="stylesheet" href="css/bootstrap.css">
+	<title>Page Title</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<script rel="script" src="js/index.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<script rel="script" src="js/index.js"></script>
 
 </head>
 <body>
 	<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Customer Reviews</h4>
-      </div>
-      <div class="modal-body" id="modalBody">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Customer Reviews</h4>
+				</div>
+				<div class="modal-body" id="modalBody">
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand">
-        Amazon Products and their Reviews
-      </a>
-    </div>
-  </div>
-</nav>
-<div class="page-header well text-center">
-  <h2>Welcome!</h2>
-  <p>Here you can see product details and their reviews</p>
-  <button type="button" class="btn btn-sm btn-primary" onclick = "main()">Click to view all products</button>
-</div>
-<div id="listHolder" class="col-lg-4"></div>
-<div id="itemDetails" class="col-lg-6 col-lg-offset-1">
-	<div class="row">
-		<label class="col-sm-4 control-label">Product Name</label>
-		<label class="col-sm-8 control-label" id="productName"></label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">ASIN</label>
-		<label class="col-sm-8 control-label" id="asin"></label>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">
+					Amazon Products and their Reviews
+				</a>
+			</div>
+		</div>
+	</nav>
+	<div class="page-header well text-center">
+		<h2>Welcome!</h2>
+		<p>Here you can see product details and their reviews</p>
+		<button type="button" class="btn btn-sm btn-primary" onclick = "main()">Click to view all products</button>
 	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">Group</label>
-		<label class="col-sm-8 control-label" id="group"></label>
+	<div id="listHolder" class="col-lg-4">
+		<nav id="paginate">
+			<ul class="pager">
+				<li class="previous disabled" id="prevPage" onclick = "paginatePre()"><a style="cursor:pointer"><span aria-hidden="true">&larr;</span> Previous</a></li>
+				<li class="next" id="nextPage" onclick = "paginateNext()"><a style="cursor:pointer">Next <span aria-hidden="true">&rarr;</span></a></li>
+			</ul>
+		</nav>
 	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">Sales Rank</label>
-		<label class="col-sm-8 control-label" id="rank"></label>
+	<div id="itemDetails" class="col-lg-6 col-lg-offset-1">
+		<div class="row">
+			<label class="col-sm-4 control-label">Product Name</label>
+			<label class="col-sm-8 control-label" id="productName"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">ASIN</label>
+			<label class="col-sm-8 control-label" id="asin"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">Group</label>
+			<label class="col-sm-8 control-label" id="group"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">Sales Rank</label>
+			<label class="col-sm-8 control-label" id="rank"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">No. of Similar Products</label>
+			<label class="col-sm-8 control-label" id="similar"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">Average Rating</label>
+			<label class="col-sm-8 control-label" id="rating"></label>
+		</div>
+		<div class="row">
+			<label class="col-sm-4 control-label">No. of Reviews</label>
+			<label class="col-sm-8 control-label" id="reviewsNo"></label>
+		</div>
+		<div class="row">
+			<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
+		</div>
 	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">No. of Similar Products</label>
-		<label class="col-sm-8 control-label" id="similar"></label>
-	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">Average Rating</label>
-		<label class="col-sm-8 control-label" id="rating"></label>
-	</div>
-	<div class="row">
-		<label class="col-sm-4 control-label">No. of Reviews</label>
-		<label class="col-sm-8 control-label" id="reviewsNo"></label>
-	</div>
-	<div class="row">
-		<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
-	</div>
-
-<!-- <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button> -->
-	
-</div>
-
 </body>
 </html>
