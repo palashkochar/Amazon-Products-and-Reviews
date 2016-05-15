@@ -1,57 +1,45 @@
-var data, pageData;
+var data, sortedData;
 var productId;
-var view = null;
+var view = null, pageInfo = null, info = null;
 var currentPage = 1, firstItem, lastItem;
-var showDetails = function(event){
-	var itemId = event.currentTarget.id;
-	productId = itemId;
-	console.log(itemId);
-	for(var j = 0; j < data.length; j++){
-		var id = data[j].Id;
-		if(id == itemId){
-			document.getElementById("productName").innerHTML = data[j].title;
-			document.getElementById("asin").innerHTML = data[j].ASIN;
-			document.getElementById("group").innerHTML = data[j].group;
-			document.getElementById("rank").innerHTML = data[j].salesrank;
-			document.getElementById("similar").innerHTML = data[j].similar.length;
-			document.getElementById("rating").innerHTML = data[j].reviews.avgRating;
-			document.getElementById("reviewsNo").innerHTML = data[j].reviews.customers.length;
-			break;
-		}
+
+//function to display products list every time
+var refreshList = function() {
+	var holder = document.getElementById('listHolder');
+
+	if (view != null){
+		holder.removeChild(view);
+		holder.removeChild(pageInfo);
+		holder.removeChild(info);
 	}
-	$("#itemDetails").show();
+
+	var pager = document.getElementById('paginate');
+	pageInfo = document.createElement('p');
+	pageInfo.innerHTML = (firstItem+1) +" - "+ (lastItem) +" of "+ sortedData.length;
+	info = document.createElement('p');
+	info.innerHTML = "Click product to see details.";
+	view = document.createElement('div');
+	view.id = 'view';
+	view.className = 'list-group';
+
+	holder.insertBefore(view, pager);
+	holder.insertBefore(info, view);
+	holder.insertBefore(pageInfo, info);
+
+	var p, a;
+	for (var index = firstItem; index < lastItem; ++index) {
+		p = document.createElement('p');
+		a = document.createElement('a');
+		a.innerHTML = sortedData[index].title.charAt(0).toUpperCase() + sortedData[index].title.slice(1);
+		a.className = "list-group-item list-group-item-warning items";
+		a.id = sortedData[index].Id;
+		p.appendChild(a);
+		view.appendChild(p);
+	}
+	$("#paginate").show();
 };
 
-var refreshWindow = function() {
-    //remove old view
-    var holder = document.getElementById('listHolder');
-
-    if (view != null){
-    	holder.removeChild(view);
-    }
-    
-    var pager = document.getElementById('paginate');
-    view = document.createElement('div');
-    holder.insertBefore(view, pager);
-    
-    view.id = 'view';
-    view.className = 'list-group';
-    
-    var p, a;
-    //add the items
-    for (var index = firstItem; index < lastItem; ++index) {
-    	
-    	p = document.createElement('p');
-    	a = document.createElement('a');
-    	a.innerHTML = data[index].title;
-    	a.className = "list-group-item list-group-item-warning items";
-    	a.id = data[index].Id;
-    	p.appendChild(a);
-    	view.appendChild(p);
-    }
-    $("#paginate").show();
-};
-
+//pagination function
 var paginateNext = function(){
 	var prevPage = document.getElementById("prevPage");
 	var nextPage = document.getElementById("nextPage");
@@ -62,14 +50,15 @@ var paginateNext = function(){
 	}
 	firstItem += 10;
 	lastItem += 10;
-	refreshWindow();
+	refreshList();
 	addEvents();
-	if(currentPage == data.length/10){
+	if(currentPage == sortedData.length/10){
 		nextPage.className = "next disabled";
 		document.getElementById('nextPage').style.pointerEvents = 'none';
 	}
 };
 
+//pagination function
 var paginatePre = function(){
 	var prevPage = document.getElementById("prevPage");
 	var nextPage = document.getElementById("nextPage");
@@ -80,14 +69,15 @@ var paginatePre = function(){
 	}
 	firstItem -= 10;
 	lastItem -= 10;
-	refreshWindow();
+	refreshList();
 	addEvents();
-	if(currentPage != floor(data.length/10)){
+	if(currentPage != Math.floor(sortedData.length/10)){
 		nextPage.className = "next";
 		document.getElementById('nextPage').style.pointerEvents = 'auto';
 	}
 };
 
+//adding eventHandler to list
 var addEvents = function(){
 	var clicks = document.getElementsByClassName("items");
 
@@ -97,6 +87,27 @@ var addEvents = function(){
 
 };
 
+//function to display product details
+var showDetails = function(event){
+	var itemId = event.currentTarget.id;
+	productId = itemId;
+	for(var j = 0; j < sortedData.length; j++){
+		var id = sortedData[j].Id;
+		if(id == itemId){
+			document.getElementById("productName").innerHTML = sortedData[j].title.charAt(0).toUpperCase() + sortedData[j].title.slice(1);;
+			document.getElementById("asin").innerHTML = sortedData[j].ASIN;
+			document.getElementById("group").innerHTML = sortedData[j].group;
+			document.getElementById("rank").innerHTML = sortedData[j].salesrank;
+			document.getElementById("similar").innerHTML = sortedData[j].similar.length;
+			document.getElementById("rating").innerHTML = sortedData[j].reviews.avgRating;
+			document.getElementById("reviewsNo").innerHTML = sortedData[j].reviews.customers.length;
+			break;
+		}
+	}
+	$("#itemDetails").show();
+};
+
+//function to display product reviews in modal window
 var seeReviews = function(){
 	$("#modalBody").empty();
 	var reviews, id;
@@ -106,10 +117,10 @@ var seeReviews = function(){
 	if (reviewsView != null){
 		reviewsHolder.removeChild(reviewsView);
 	}
-	for(var j = 0; j < data.length; j++){
-		id = data[j].Id;
+	for(var j = 0; j < sortedData.length; j++){
+		id = sortedData[j].Id;
 		if(id == productId){
-			reviews = data[j].reviews.customers;
+			reviews = sortedData[j].reviews.customers;
 			break;
 		}
 	}
@@ -138,11 +149,40 @@ var seeReviews = function(){
 	}
 };
 
+var sortProducts = function(opt){
+	if(opt.value == "Sales Rank"){
+		sortedData.sort(function(b, a){
+			return a.salesrank-b.salesrank;
+		});
+		refreshList();
+		addEvents();
+	} else if(opt.value == "Average Rating"){
+		sortedData.sort(function(b, a){
+			return a.reviews.avgRating-b.reviews.avgRating;
+		});
+		refreshList();
+		addEvents();
+	} else if(opt.value == "Product Name"){
+		sortedData.sort(function(a, b){
+			var titleA=a.title.toLowerCase(), titleB=b.title.toLowerCase();
+		 if (titleA < titleB)
+		 	return -1;
+		 if (titleA > titleB)
+		 	return 1;
+		 return 0;
+		});
+		refreshList();
+		addEvents();
+	}
+};
+
 window.onload = function(){
 	$("#itemDetails").hide();
 	$("#paginate").hide();
+	$("#sortBy").hide();
 };
 
+//function to display product list initially
 var main = function() {
 	data = [
 	{
@@ -2303,11 +2343,14 @@ var main = function() {
 	}
 	];
 
+	sortedData = data;
+
 	$("#itemDetails").hide();
 	$("#paginate").hide();
+	$("#sortBy").show();
 	document.getElementById('prevPage').style.pointerEvents = 'none';
 	currentPage = 1;
 	firstItem = 0, lastItem = 10;
-	refreshWindow();
+	refreshList();
 	addEvents();
 };

@@ -15,6 +15,12 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
 	<script rel="script" src="js/index.js"></script>
 
 </head>
@@ -48,7 +54,15 @@
 	<div class="page-header well text-center">
 		<h2>Welcome!</h2>
 		<p>Here you can see product details and their reviews</p>
-		<button type="button" class="btn btn-sm btn-primary" onclick = "main()">Click to view all products</button>
+		<button type="button" class="btn btn-sm btn-primary" onclick = "main()">Click to view products</button>
+	</div>
+	<div class="col-lg-12" id="sortBy">
+		<label>Sort By: </label>
+		<select class="selectpicker" onChange="sortProducts(this)">
+		  <option>Product Name</option>
+		  <option>Sales Rank</option>
+		  <option>Average Rating</option>
+		</select>
 	</div>
 	<div id="listHolder" class="col-lg-4">
 		<nav id="paginate">
@@ -60,35 +74,35 @@
 	</div>
 	<div id="itemDetails" class="col-lg-6 col-lg-offset-1">
 		<div class="row">
-			<label class="col-sm-4 control-label">Product Name</label>
+			<label class="col-sm-4 control-label">Product Name:</label>
 			<label class="col-sm-8 control-label" id="productName"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">ASIN</label>
+			<label class="col-sm-4 control-label">ASIN:</label>
 			<label class="col-sm-8 control-label" id="asin"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">Group</label>
+			<label class="col-sm-4 control-label">Group:</label>
 			<label class="col-sm-8 control-label" id="group"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">Sales Rank</label>
+			<label class="col-sm-4 control-label">Sales Rank:</label>
 			<label class="col-sm-8 control-label" id="rank"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">No. of Similar Products</label>
+			<label class="col-sm-4 control-label">No. of Similar Products:</label>
 			<label class="col-sm-8 control-label" id="similar"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">Average Rating</label>
+			<label class="col-sm-4 control-label">Average Rating:</label>
 			<label class="col-sm-8 control-label" id="rating"></label>
 		</div>
 		<div class="row">
-			<label class="col-sm-4 control-label">No. of Reviews</label>
+			<label class="col-sm-4 control-label">No. of Reviews:</label>
 			<label class="col-sm-8 control-label" id="reviewsNo"></label>
-		</div>
+		</div><br/>
 		<div class="row">
-			<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
+			<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
 		</div>
 	</div>
 </body>
