@@ -1,0 +1,31 @@
+.navbar-brand {
+	padding: 0px;
+
+}
+.navbar-brand>img {
+  height: 158%;
+  padding: 0px;
+  width: auto;
+  margin-left: 15px;
+  margin-top: 16px;
+  border: 1px solid #080808;
+}
+.navHeading {
+	text-align: center;
+	color: white;
+}
+.page-header{
+	margin-top: 63px;
+}
+.sortBar {
+	margin-bottom: 20px;
+}
+.fontBold {
+	font-weight: bold;
+}
+.margin15 {
+	margin-left: 15px;
+}
+#productSearchBox {
+	
+}

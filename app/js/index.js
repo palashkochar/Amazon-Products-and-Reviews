@@ -5,6 +5,7 @@ var currentPage = 1, firstItem, lastItem;
 
 //function to display products list every time
 var refreshList = function() {
+	$("#listHolder").show();
 	var holder = document.getElementById('listHolder');
 
 	if (view != null){
@@ -15,8 +16,10 @@ var refreshList = function() {
 
 	var pager = document.getElementById('paginate');
 	pageInfo = document.createElement('p');
+	pageInfo.className = "fontBold";
 	pageInfo.innerHTML = (firstItem+1) +" - "+ (lastItem) +" of "+ sortedData.length;
 	info = document.createElement('p');
+	info.className = "fontBold";
 	info.innerHTML = "Click product to see details.";
 	view = document.createElement('div');
 	view.id = 'view';
@@ -130,6 +133,7 @@ var seeReviews = function(){
 	for (var index = 0; index < reviews.length; ++index) {
 		div = document.createElement('div');
 		div.id = "review"+index;
+		div.className = "well";
 		p0 = document.createElement('p');
 		p1 = document.createElement('p');
 		p2 = document.createElement('p');
@@ -143,7 +147,6 @@ var seeReviews = function(){
 		div.appendChild(p1);
 		div.appendChild(p2);
 		div.appendChild(p3);
-		div.appendChild(document.createElement('hr'));
 
 		reviewsView.appendChild(div);
 	}
@@ -180,6 +183,7 @@ window.onload = function(){
 	$("#itemDetails").hide();
 	$("#paginate").hide();
 	$("#sortBy").hide();
+	$("#listHolder").hide();
 };
 
 //function to display product list initially

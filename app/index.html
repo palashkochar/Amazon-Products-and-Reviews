@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Page Title</title>
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<title>Products and Reviews</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
@@ -17,6 +16,9 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+	<!--<link rel="stylesheet" href="css/bootstrap.css">-->
+	<link rel="stylesheet" href="css/custom.css">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
@@ -42,13 +44,14 @@
 			</div>
 		</div>
 	</div>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
+	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container-fluid navBar">
 			<div class="navbar-header">
 				<a class="navbar-brand">
-					Amazon Products and their Reviews
+					<img src="images/logo.png" >
 				</a>
 			</div>
+			<h2 class="navHeading">Products and their Reviews</h2>
 		</div>
 	</nav>
 	<div class="page-header well text-center">
@@ -56,7 +59,7 @@
 		<p>Here you can see product details and their reviews</p>
 		<button type="button" class="btn btn-sm btn-primary" onclick = "main()">Click to view products</button>
 	</div>
-	<div class="col-lg-12" id="sortBy">
+	<div class="col-lg-12 sortBar" id="sortBy">
 		<label>Sort By: </label>
 		<select class="selectpicker" onChange="sortProducts(this)">
 		  <option>Product Name</option>
@@ -64,7 +67,7 @@
 		  <option>Average Rating</option>
 		</select>
 	</div>
-	<div id="listHolder" class="col-lg-4">
+	<div id="listHolder" class="col-lg-4 well margin15">
 		<nav id="paginate">
 			<ul class="pager">
 				<li class="previous disabled" id="prevPage" onclick = "paginatePre()"><a style="cursor:pointer"><span aria-hidden="true">&larr;</span> Previous</a></li>
@@ -72,7 +75,7 @@
 			</ul>
 		</nav>
 	</div>
-	<div id="itemDetails" class="col-lg-6 col-lg-offset-1">
+	<div id="itemDetails" class="col-lg-6 col-lg-offset-1 well">
 		<div class="row">
 			<label class="col-sm-4 control-label">Product Name:</label>
 			<label class="col-sm-8 control-label" id="productName"></label>
@@ -102,7 +105,7 @@
 			<label class="col-sm-8 control-label" id="reviewsNo"></label>
 		</div><br/>
 		<div class="row">
-			<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
+			<button type="button" class="btn btn-primary btn-xs margin15" data-toggle="modal" data-target="#myModal" onclick="seeReviews()">Click to read reviews</button>
 		</div>
 	</div>
 </body>
